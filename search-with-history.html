@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索功能演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+            line-height: 1.5; */
+            /* font-weight: 400; */
+            color: rgba(255, 255, 255, 0.87);
+            background-color: #242424;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #646cff;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 搜索容器 */
+        .search-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .search-input:focus {
+            outline: none;
+        }
+        
+        .search-btn {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background-color: #764ba2;
+        }
+        
+        /* 搜索下拉框 */
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            color: #333;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .dropdown-section {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .dropdown-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .section-header h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+        }
+        
+        .clear-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .dropdown-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .item-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .rank {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .rank.top {
+            color: #ff4757;
+            font-weight: bold;
+        }
+        
+        .timestamp {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .count {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* 搜索结果 */
+        .search-results {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .results-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+        
+        .results-list {
+            list-style: none;
+        }
+        
+        .results-list li {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .results-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>搜索功能演示</h1>
+        
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    placeholder="搜索代码用法、库、框架等"
+                    id="searchInput" 
+                    class="search-input"
+                />
+                <button class="search-btn" id="searchBtn">
+                    搜索
+                </button>
+            </div>
+            
+            <!-- 搜索下拉框 -->
+            <div id="searchDropdown" class="search-dropdown" style="display: none;">
+                <!-- 搜索历史 -->
+                <div id="searchHistory" class="dropdown-section">
+                    <div class="section-header">
+                        <h4>搜索历史</h4>
+                        <button class="clear-btn" id="clearHistory">清空</button>
+                    </div>
+                    <ul class="dropdown-list" id="historyList">
+                        <!-- 历史记录将通过JavaScript动态添加 -->
+                    </ul>
+                </div>
+                
+                <!-- 热门搜索 -->
+                <div class="dropdown-section">
+                    <div class="section-header">
+                        <h4>热门搜索</h4>
+                    </div>
+                    <ul class="dropdown-list" id="hotList">
+                        <!-- 热门搜索将通过JavaScript动态添加 -->
+                    </ul>
+                </div>
+                
+                <!-- 搜索建议 -->
+                <div id="searchSuggestions" class="dropdown-section">
+                    <div class="section-header">
+                        <h4>搜索建议</h4>
+                    </div>
+                    <ul class="dropdown-list" id="suggestionsList">
+                        <!-- 搜索建议将通过JavaScript动态添加 -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索结果 -->
+        <div class="search-results" id="searchResults" style="display: none;">
+            <h3 class="results-title" id="resultsTitle">搜索结果</h3>
+            <ul class="results-list" id="resultsList">
+                <!-- 搜索结果将通过JavaScript动态添加 -->
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // 全局变量
+        const hotSearches = [
+            { id: 1, keyword: 'Python 教程', count: 1234 },
+            { id: 2, keyword: 'JavaScript 框架', count: 987 },
+            { id: 3, keyword: 'CSS 布局', count: 765 },
+            { id: 4, keyword: 'React 组件', count: 654 },
+            { id: 5, keyword: 'Git 命令', count: 543 }
+        ];
+        
+        const searchSuggestions = [
+            'Python 教程', 'Python 基础', 'Python 进阶', 'Python 库',
+            'JavaScript 教程', 'JavaScript 基础', 'JavaScript 高级',
+            'CSS 教程', 'CSS 布局', 'CSS 动画',
+            'React 教程', 'React 组件', 'React 状态管理'
+        ];
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 绑定事件
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchDropdown = document.getElementById('searchDropdown');
+            const clearHistoryBtn = document.getElementById('clearHistory');
+            
+            // 搜索框焦点事件
+            searchInput.addEventListener('focus', function() {
+                showSearchDropdown();
+            });
+            
+            // 搜索框输入事件
+            searchInput.addEventListener('input', function(e) {
+                showSearchSuggestions(e.target.value);
+                searchDropdown.style.display = 'block';
+            });
+            
+            // 搜索按钮点击事件
+            searchBtn.addEventListener('click', function() {
+                performSearch(searchInput.value);
+            });
+            
+            // 回车键搜索
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value);
+                }
+            });
+            
+            // 清空历史记录
+            clearHistoryBtn.addEventListener('click', function() {
+                clearSearchHistory();
+            });
+            
+            // 点击页面其他地方关闭下拉框
+            const searchContainer = document.querySelector('.search-container');
+            document.addEventListener('click', function(e) {
+                if (!searchContainer.contains(e.target)) {
+                    searchDropdown.style.display = 'none';
+                }
+            });
+            
+            // 初始化显示热门搜索
+            showHotSearches();
+        });
+        
+        // 显示搜索下拉框
+        function showSearchDropdown() {
+            const searchDropdown = document.getElementById('searchDropdown');
+            const historyList = document.getElementById('historyList');
+            
+            // 加载搜索历史
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            
+            if (history.length > 0) {
+                historyList.innerHTML = history.map(item => `
+                    <li class="dropdown-item" onclick="fillSearch('${item.query}')">
+                        <div class="item-content">
+                            <span>🔍</span>
+                            <span style="margin-left: 10px;">${item.query}</span>
+                        </div>
+                        <span class="timestamp">${new Date(item.timestamp).toLocaleString()}</span>
+                    </li>
+                `).join('');
+            } else {
+                historyList.innerHTML = '<li class="dropdown-item" style="text-align: center; color: #999;">暂无搜索历史</li>';
+            }
+            
+            searchDropdown.style.display = 'block';
+        }
+        
+        // 显示热门搜索
+        function showHotSearches() {
+            const hotList = document.getElementById('hotList');
+            
+            hotList.innerHTML = hotSearches.map((item, index) => `
+                <li class="dropdown-item" onclick="fillSearch('${item.keyword}')">
+                    <div class="item-content">
+                        <span class="rank ${index < 3 ? 'top' : ''}">${index + 1}</span>
+                        <span>${item.keyword}</span>
+                    </div>
+                    <span class="count">${item.count}</span>
+                </li>
+            `).join('');
+        }
+        
+        // 显示搜索建议
+        function showSearchSuggestions(query) {
+            const suggestionsList = document.getElementById('suggestionsList');
+            
+            if (query.trim()) {
+                const filteredSuggestions = searchSuggestions.filter(item => 
+                    item.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (filteredSuggestions.length > 0) {
+                    suggestionsList.innerHTML = filteredSuggestions.map(item => `
+                        <li class="dropdown-item" onclick="fillSearch('${item}')">
+                            <div class="item-content">
+                                <span>💡</span>
+                                <span style="margin-left: 10px;">${item}</span>
+                            </div>
+                        </li>
+                    `).join('');
+                } else {
+                    suggestionsList.innerHTML = '<li class="dropdown-item" style="text-align: center; color: #999;">暂无搜索建议</li>';
+                }
+            } else {
+                suggestionsList.innerHTML = '<li class="dropdown-item" style="text-align: center; color: #999;">请输入搜索关键词</li>';
+            }
+        }
+        
+        // 填充搜索框
+        function fillSearch(query) {
+            document.getElementById('searchInput').value = query;
+            document.getElementById('searchDropdown').style.display = 'none';
+        }
+        
+        // 执行搜索
+        function performSearch(query) {
+            if (!query.trim()) return;
+            
+            // 保存搜索历史
+            saveSearchHistory(query);
+            
+            // 隐藏下拉框
+            document.getElementById('searchDropdown').style.display = 'none';
+            
+            // 显示搜索结果
+            showSearchResults(query);
+        }
+        
+        // 保存搜索历史
+        function saveSearchHistory(query) {
+            let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            // 移除重复项
+            history = history.filter(item => item.query !== query);
+            // 添加到开头
+            history.unshift({ id: Date.now(), query, timestamp: new Date().toISOString() });
+            // 只保留最近10条
+            history = history.slice(0, 10);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+        }
+        
+        // 清空搜索历史
+        function clearSearchHistory() {
+            localStorage.removeItem('searchHistory');
+            document.getElementById('historyList').innerHTML = '<li class="dropdown-item" style="text-align: center; color: #999;">暂无搜索历史</li>';
+        }
+        
+        // 显示搜索结果
+        function showSearchResults(query) {
+            const searchResults = document.getElementById('searchResults');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsList = document.getElementById('resultsList');
+            
+            resultsTitle.textContent = `搜索结果: ${query}`;
+            
+            // 模拟搜索结果
+            const mockResults = [
+                { title: `${query} 入门教程`, content: `这是 ${query} 的入门教程，适合初学者学习。` },
+                { title: `${query} 高级技巧`, content: `掌握 ${query} 的高级技巧，提升你的编程能力。` },
+                { title: `${query} 最佳实践`, content: `${query} 的最佳实践，让你的代码更加规范。` }
+            ];
+            
+            resultsList.innerHTML = mockResults.map(item => `
+                <li>
+                    <strong>${item.title}</strong>
+                    <p>${item.content}</p>
+                </li>
+            `).join('');
+            
+            searchResults.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

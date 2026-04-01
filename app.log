@@ -1,0 +1,59 @@
+=== Application Start ===
+[2026-03-30T11:58:07.362Z] INFO: === Application Starting ===
+[2026-03-30T11:58:07.364Z] INFO: App path: D:\new\work3
+[2026-03-30T11:58:07.365Z] INFO: Current directory: D:\new\work3
+[2026-03-30T11:58:07.366Z] INFO: === Starting Backend Service ===
+[2026-03-30T11:58:07.367Z] INFO: App is packaged: false
+[2026-03-30T11:58:07.368Z] INFO: Current directory: D:\new\work3
+[2026-03-30T11:58:07.369Z] INFO: App path: D:\new\work3
+[2026-03-30T11:58:07.371Z] INFO: Backend config: {"pythonPath":"python","scriptPath":"D:\\new\\work3\\backend\\connect.py","cwdPath":"D:\\new\\work3","scriptExists":true,"pythonExists":false}
+[2026-03-30T11:58:07.373Z] ERROR: Python executable not found at: python
+[2026-03-30T11:58:07.374Z] INFO: Trying system Python: python
+[2026-03-30T11:58:07.375Z] INFO: Attempting to spawn backend process...
+[2026-03-30T11:58:07.404Z] INFO: Backend process spawned with PID: 10148
+[2026-03-30T11:58:07.405Z] INFO: === Backend Startup Complete ===
+[2026-03-30T11:58:07.406Z] ERROR: (node:644) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `electron --trace-deprecation ...` to show where the warning was created)
+[2026-03-30T11:58:07.496Z] INFO: === App whenReady triggered ===
+[2026-03-30T11:58:07.497Z] INFO: Backend is already running as main process
+[2026-03-30T11:58:07.498Z] INFO: Starting frontend...
+[2026-03-30T11:58:09.226Z] ERROR: Backend stderr: 2026-03-30 19:58:09,225 - __main__ - INFO - Testing database connection to localhost/language_function_db
+
+[2026-03-30T11:58:09.279Z] ERROR: Backend stderr: 2026-03-30 19:58:09,278 - __main__ - INFO - Database connection successful
+
+[2026-03-30T11:58:09.282Z] ERROR: Backend stderr: 2026-03-30 19:58:09,282 - __main__ - INFO - Starting Flask application on http://localhost:5000
+
+[2026-03-30T11:58:09.283Z] INFO: Backend stdout:  * Serving Flask app 'connect'
+ * Debug mode: off
+
+[2026-03-30T11:58:09.512Z] INFO: Creating window...
+[2026-03-30T11:58:09.513Z] INFO: Icon path: D:\new\work3\frontend\picture\icon.png
+[2026-03-30T11:58:09.514Z] INFO: Icon file exists: true
+[2026-03-30T11:58:09.580Z] INFO: Found login page at: D:\new\work3\frontend\login\login.html
+[2026-03-30T11:58:09.581Z] INFO: Loading frontend from: D:\new\work3\frontend\login\login.html
+[2026-03-30T11:58:09.596Z] INFO: Window created
+[2026-03-30T11:58:12.419Z] INFO: Backend process is still running after 5 seconds
+[2026-03-30T11:58:14.243Z] ERROR: Backend stderr: 2026-03-30 19:58:14,243 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.25.132.132:5000
+2026-03-30 19:58:14,243 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+
+[2026-03-30T11:58:19.812Z] ERROR: Backend stderr: 2026-03-30 19:58:19,812 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 19:58:19] "POST /api/check-email HTTP/1.1" 200 -
+
+[2026-03-30T11:58:27.772Z] ERROR: Backend stderr: 2026-03-30 19:58:27,772 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 19:58:27] "POST /api/check-email HTTP/1.1" 200 -
+
+[2026-03-30T11:58:33.994Z] ERROR: Backend stderr: 2026-03-30 19:58:33,994 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 19:58:33] "POST /api/check-email HTTP/1.1" 200 -
+
+[2026-03-30T11:58:38.947Z] ERROR: Backend stderr: 2026-03-30 19:58:38,947 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 19:58:38] "POST /api/save-all-settings HTTP/1.1" 200 -
+
+[2026-03-30T11:58:38.949Z] INFO: Settings saved: {"message":"Settings save operation completed"}
+
+[2026-03-30T11:58:38.950Z] INFO: Stopping backend server with PID: 10148
+[2026-03-30T11:58:38.984Z] ERROR: Backend stderr: 2026-03-30 19:58:38,983 - werkzeug - INFO - 127.0.0.1 - - [30/Mar/2026 19:58:38] "POST /api/save-all-settings HTTP/1.1" 200 -
+
+[2026-03-30T11:58:38.986Z] INFO: Settings saved: {"message":"Settings save operation completed"}
+
+[2026-03-30T11:58:38.987Z] INFO: Stopping backend server with PID: 10148
+[2026-03-30T11:58:39.018Z] INFO: Stopping backend server with PID: 10148
+[2026-03-30T11:58:39.047Z] INFO: Application quit
