@@ -1,0 +1,691 @@
+/* 引入Jura字体（本地不存在字体文件时，回退为系统字体，不再请求不存在的 otf 文件） */
+@font-face {
+  font-family: 'Jura';
+  /* 使用本机已安装的 Jura；若没有，则直接使用系统字体，不再发起网络请求 */
+  src: local('Jura'), local('Jura Regular');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --primary-color: #2d5cea;
+  --secondary-color: #30d1fe;
+  --accent-color: #000000;
+  --background-color: #f5f5f5;
+  --card-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #e6e9ef;
+}
+
+/* 全局样式重置 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+body {
+  font-family: 'Jura', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* 主容器 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 顶部导航栏 */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-family: 'Jura', Arial, sans-serif;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.close-btn {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+.tool-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tool-btn.favorited {
+  color: #ffd700;
+}
+
+.tool-btn.refreshing {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 主内容区和侧边栏 */
+.main-content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 侧边栏 */
+.sidebar {
+  width: 100px;
+  background: linear-gradient(180deg, var(--primary-color) 17.79%, var(--secondary-color) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-top: 20px;
+  display: flex;
+}
+.title{
+  margin-left:10px;
+  width: 0px;
+  height: 60px;
+  overflow: hidden;
+  transition: 0.5s;
+   display: flex;
+   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: -20px;
+  opacity: 0;
+  user-select: none;
+}
+.nav:hover .title{
+  width: 100px;
+  margin-left:10px;
+  height: 60px;
+  overflow:visible;
+  opacity: 1;
+}
+.title p{
+  padding-top: 5px;
+  font-size: 15 px;
+  
+}
+.title h1{
+  font-size: 30px;
+  font-weight: bold;
+}
+.line{
+  width: 80px;
+  height: 3px;
+  border-radius: 10px;
+  margin: 20px 10px;
+  background: rgb(255, 255, 255);
+  transition: 0.5s;
+}
+.nav:hover .line{
+  width: 180px;
+}
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.avatar-circle img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.wrap {
+  /* border: 8px solid red; */
+  width: 100px;
+  height: 100%;
+  background: var(--background-color);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  transition: 0.5s;
+}
+.wrap:hover{
+  width: 200px;
+}
+.nav{
+  /* border: 8px solid red; */
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary-color) 17.79%, var(--secondary-color) 100%);
+  /* border-radius: 20px; */
+  overflow: hidden;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  
+  
+  
+}
+.nav:hover{
+  width: 200px;
+}
+.btn{
+  /* border: 8px solid red; */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 25px;
+}
+.btn-item{
+  
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  user-select: none;
+  background-color: rgba(255, 255, 255, 1);
+  
+} 
+.icon{
+  
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-left: 15px;
+}
+.icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.btn-item img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.description{
+  margin-left: 10PX;
+  width: 0px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.5s;
+  position: relative;
+  left: -20px;
+  opacity: 0;
+  user-select: none;
+
+}
+.nav:hover .description{
+  width: 90px;
+  opacity: 1;
+  font-size: 20px;
+  margin-left: 15px;
+}
+.description:hover{
+  margin-left: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* 主内容区 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+}
+
+.content-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.main-title {
+  font-family: 'Jura', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+/* 内容布局 */
+.content-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* 产品简介 */
+.product-intro {
+  flex: 1;
+  background: var(--card-color);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.product-intro h2 {
+  font-family: 'Jura', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.product-intro p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.product-intro ul {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+.product-intro li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* 收藏界面 */
+.favorites-section {
+  flex: 1;
+  background: var(--card-color);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.favorites-section h2 {
+  font-family: 'Jura', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.favorites-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.favorite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+
+.favorite-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.favorite-info {
+  flex: 1;
+}
+
+.favorite-name {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  font-family: 'Jura', Arial, sans-serif;
+}
+
+.favorite-lang {
+  font-size: 14px;
+  color: #666;
+}
+
+.remove-favorite {
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s ease;
+}
+
+.remove-favorite:hover {
+  background: #ff3742;
+}
+
+.no-favorites {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 40px 0;
+}
+
+/* 搜索容器 */
+.search-container {
+  width: fit-content;
+  min-width: 30rem;
+  max-width: none;
+  position: relative;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--card-color);
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.search-input {
+  width: 100%;
+  flex: 1;
+  padding: 0.8em;
+  border: none;
+  outline: none;
+  border-radius: 25px 0 0 25px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.lang-select {
+  padding: 0.8em;
+  border: none;
+  outline: none;
+  background: var(--card-color);
+  font-family: inherit;
+  font-size: inherit;
+  border-right: 1px solid var(--border-color);
+}
+
+.search-btn {
+  background: var(--accent-color);
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 0 25px 25px 0;
+  transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+  background: #2d2d2d;
+}
+
+/* 搜索结果 */
+.search-results {
+  width: 100%;
+  max-width: 500px;
+  background: var(--card-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-top: 20px;
+  display: none;
+}
+
+.search-results.show {
+  display: block;
+}
+
+.results-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  font-family: 'Jura', Arial, sans-serif;
+}
+
+.results-list {
+  list-style: none;
+}
+
+.result-item {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.result-item:hover {
+  background: rgba(45, 92, 234, 0.05);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.result-name {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+  font-family: 'Jura', Arial, sans-serif;
+}
+
+.result-desc {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  font-family: 'Jura', Arial, sans-serif;
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #2d2d2d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  
+  .main-title {
+    font-size: 28px;
+  }
+  
+  .content-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .product-intro, .favorites-section {
+    padding: 20px;
+  }
+  
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 20px;
+  }
+  
+  .main-title {
+    font-size: 24px;
+  }
+  
+  .nav-btn {
+    font-size: 14px;
+  }
+  
+  .tool-btn {
+    font-size: 14px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .product-intro, .favorites-section {
+    padding: 15px;
+  }
+}
+
+/* 函数详情页面样式 */
+.detail-section {
+  background: var(--card-color);
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-bottom: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-section h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+}
+
+.detail-section p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+.detail-section pre {
+  background: #f8f9fa;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+}
+
+.detail-section code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}

@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'Jura';
+    src: url('../FONT/Jura-Bold\ \(1\).otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+:root{
+    --card:#ffffff;
+    --accent:#000000;
+
+}
+h1 {
+  font-family: 'Jura';
+    font-style: normal;
+font-weight: 700;
+font-size: 40px;
+line-height: 47px;
+display: flex;
+align-items: center;
+text-align: center;
+color:#ffffff;
+}
+body{
+    background-image: url("../picture/CB127EA5-D2EA-4B12-878B-852677C15E70 copy.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height:100vh;
+}
+
+
+*{box-sizing:border-box}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:18px;text-align: center;}
+.center{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;flex-direction: column;gap:10px;}
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(15,23,42,0.08);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.input{width:100%;padding:10px 12px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px;}
+.field{margin-bottom:20px}
+.btn{width:100%;padding:10px 12px;border-radius:18px;border:0;background:var(--accent);color:#ffffff;font-weight:600;cursor:pointer}
+.btn:active{transform:translateY(1px)}
+.btn:hover{background:#2d2d2d}
+.filed{margin-bottom:1400px;}
+@media(max-width:420px){.card{padding:18px}}
+.hidden{display:none}
+.wrong{
+    color: red;
+    font-size: 13px;
+    margin-top: 6px;
+}
+.visiblebtn{
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(152, 152, 152);
+}
+.row{display:flex;gap:12px;align-items:center ;margin-bottom: 6px;}
+.muted{color: rgb(152, 152, 152); text-decoration: none;}
+.muted:hover{text-decoration: underline;}
+
+/* 模态框样式 */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+#forgotEmail {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#sendPasswordBtn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#sendPasswordBtn:hover {
+    background: #2d2d2d;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+        padding: 15px;
+    }
+    
+    .close {
+        font-size: 24px;
+    }
+}
+
+
+
+
+
+
+
+
+
+

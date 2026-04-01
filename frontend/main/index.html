@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFetch - 主界面</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- 顶部导航栏 -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="nav-btn active">主页</button>
+                <button class="nav-btn close-btn" id="add">+</button>
+            </div>
+            <div class="nav-right">
+                <button class="tool-btn" id="refreshBtn" title="刷新">
+                    <span class="tool-icon">⟳</span>
+                </button>
+                <button class="tool-btn" id="favoriteBtn" title="收藏">
+                    <span class="tool-icon">☆</span>
+                </button>
+                <button class="tool-btn" id="shareBtn" title="分享">
+                    <span class="tool-icon">↗</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- 主内容区和侧边栏 -->
+        <div class="main-content-wrapper">
+            <!-- 侧边栏导航 -->
+            
+                <div class="wrap">
+            <div class="nav">
+                    <div class="header">
+                        <div class="avatar-circle"><img src="../picture/头像.jpg" alt=""></div>
+                    <div class="title">
+                        <p>你好</p>
+                        <h1>用户</h1>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="btn">
+                    <div class="icon">
+                        <a href="python.html" >
+                    <div class="btn-item"><img src="../picture/python.png" alt=""></div>
+                    <div class="description"><h>Python</h></div>
+                    </a>
+                    </div>
+                    <div class="icon">
+                        <a href="C++.html" >
+                    <div class="btn-item"><img src="../picture/C++.png" alt=""></div>
+                    <div class="description"><h>C++</h></div>
+                    </a>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="icon">
+                    <a href="../setting/index.html">
+                        <div class="btn-item"><img src="../picture/setting.png" alt=""></div>
+                        <div class="description"><h>设置</h></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+            
+            
+            <!-- 主内容区 -->
+            <main class="main-content">
+                <div class="content-header">
+                    <h1 class="main-title">点击，发现新用法</h1>
+                </div>
+                
+                <!-- 产品简介和收藏界面 -->
+                <div class="content-layout">
+                    <!-- 左侧：产品简介 -->
+                    <div class="product-intro">
+                        <h2>CodeFetch - 代码函数搜索工具</h2>
+                        <p>CodeFetch 是一款强大的代码函数搜索和学习工具，帮助开发者快速发现和掌握编程语言中的各种函数用法。</p>
+                        <ul>
+                            <li>🔍 <strong>智能搜索</strong>：支持模糊搜索，快速找到相关函数</li>
+                            <li>📚 <strong>详细文档</strong>：提供函数参数、返回值、使用示例等完整信息</li>
+                            <li>⭐ <strong>收藏功能</strong>：收藏常用函数，方便后续查阅</li>
+                            <li>🌐 <strong>多语言支持</strong>：目前支持 Python 和 C++</li>
+                            <li>🎯 <strong>精准匹配</strong>：基于相关性排序，确保最相关的结果优先显示</li>
+                        </ul>
+                        <p>开始探索编程世界的无限可能！</p>
+                    </div>
+                    
+                    <!-- 右侧：收藏界面 -->
+                    <div class="favorites-section">
+                        <h2>我的收藏</h2>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- 收藏的函数将通过JavaScript动态添加 -->
+                            <p class="no-favorites">暂无收藏的函数</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 回到顶部按钮 -->
+                <button class="back-to-top" id="backToTop">
+                    <span class="back-icon">↑</span>
+                </button>
+            </main>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

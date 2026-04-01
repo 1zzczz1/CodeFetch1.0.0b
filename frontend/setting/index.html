@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFetch - 设置</title>
+    <!-- 使用主界面的样式表 -->
+    <link rel="stylesheet" href="../main/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- 顶部导航栏 -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="nav-btn"><a href="../main/index.html">主页</a></button>
+                <button class="nav-btn close-btn" id="add">+</button>
+            </div>
+            <div class="nav-right">
+                <button class="tool-btn" id="refreshBtn" title="刷新">
+                    <span class="tool-icon">⟳</span>
+                </button>
+                <button class="tool-btn" id="favoriteBtn" title="收藏">
+                    <span class="tool-icon">☆</span>
+                </button>
+                <button class="tool-btn" id="shareBtn" title="分享">
+                    <span class="tool-icon">↗</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 主内容区和侧边栏 -->
+        <div class="main-content-wrapper">
+            <!-- 侧边栏导航 -->
+            <div class="wrap">
+                <div class="nav">
+                    <div class="header">
+                        <div class="avatar-circle"><img src="../picture/头像.jpg" alt=""></div>
+                        <div class="title">
+                            <p>你好</p>
+                            <h1>用户</h1>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="btn">
+                        <div class="icon">
+                            <a href="../main/python.html" >
+                                <div class="btn-item"><img src="../picture/python.png" alt=""></div>
+                                <div class="description"><h>Python</h></div>
+                            </a>
+                        </div>
+                        <div class="icon">
+                            <a href="../main/C++.html" >
+                                <div class="btn-item"><img src="../picture/C++.png" alt=""></div>
+                                <div class="description"><h>C++</h></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="icon">
+                        <a href="index.html">
+                            <div class="btn-item"><img src="../picture/setting.png" alt=""></div>
+                            <div class="description"><h>设置</h></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 主内容区 -->
+            <main class="main-content">
+                <div class="content-header">
+                    <h1 class="main-title">设置</h1>
+                </div>
+                <!-- 设置内容区域 -->
+                <div class="settings-container">
+                    <!-- 基本信息 -->
+                    <div class="setting-section">
+                        <h2>基本信息</h2>
+                        <div class="form-group">
+                            <label for="username">用户名：</label>
+                            <input type="text" id="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱：</label>
+                            <input type="email" id="email" readonly>
+                        </div>
+                    </div>
+
+                    <!-- 头像设置 -->
+                    <div class="setting-section">
+                        <h2>头像设置</h2>
+                        <div class="avatar-preview">
+                            <img id="avatarImg" src="../picture/头像.jpg" alt="">
+                        </div>
+                        <div class="form-group">
+                            <label for="avatarFile">上传头像：</label>
+                            <input type="file" id="avatarFile" accept="image/*">
+                            <button id="updateAvatar">更新头像</button>
+                        </div>
+                    </div>
+
+                    <!-- 修改密码 -->
+                    <div class="setting-section">
+                        <h2>修改密码</h2>
+                        <div class="form-group">
+                            <label for="oldPassword">旧密码：</label>
+                            <input type="password" id="oldPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">新密码：</label>
+                            <input type="password" id="newPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">确认新密码：</label>
+                            <input type="password" id="confirmPassword">
+                        </div>
+                        <button id="changePassword">修改密码</button>
+                    </div>
+
+                    <!-- 个人收藏 -->
+                    <div class="setting-section">
+                        <h2>个人收藏</h2>
+                        <div id="favoritesList">
+                            <p>加载中...</p>
+                        </div>
+                    </div>
+
+                    <!-- 保存设置 -->
+                    <div class="setting-section">
+                        <button id="saveSettings">保存设置</button>
+                        <div id="message"></div>
+                    </div>
+
+                    <!-- 账号管理 -->
+                    <div class="setting-section danger-section">
+                        <h2>账号管理</h2>
+                        <button id="logoutBtn">退出账号</button>
+                        <button id="deleteAccountBtn">注销账号</button>
+                        <p class="danger-note">注销账号将永久删除您的所有数据，此操作不可恢复！</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
