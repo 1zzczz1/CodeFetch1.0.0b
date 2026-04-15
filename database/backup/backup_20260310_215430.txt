@@ -1,0 +1,9 @@
+数据库备份 - 2026-03-10 21:54:30.218000
+
+=== 用户表 (users) ===
+{'user_id': 1, 'email': 'zhchzh11@outlook.com', 'password_hash': 'pbkdf2:sha256:600000$OEc4vdlQ1bQEwu3J$b78f7e048475694ddb1858849cd33cfe1c3a3c19eff439e286f6b2947df99f6f', 'create_time': datetime.datetime(2026, 3, 9, 23, 14, 4), 'update_time': datetime.datetime(2026, 3, 9, 23, 14, 4)}
+{'user_id': 3, 'email': 'wen@qq.com', 'password_hash': 'pbkdf2:sha256:600000$IGZJYqC3HPo1US2m$92c515b035011add7ec7ff9a6ed8c7d967e92eee146286aae3d30ba9523a412f', 'create_time': datetime.datetime(2026, 3, 10, 21, 28, 42), 'update_time': datetime.datetime(2026, 3, 10, 21, 28, 42)}
+
+=== 用户设置表 (user_settings) ===
+{'user_id': 3, 'username': '用户', 'avatar_url': 'http://localhost:5000/frontend/picture/%E5%A4%B4%E5%83%8F.jpg', 'font_size': 16, 'create_time': datetime.datetime(2026, 3, 10, 21, 40, 30), 'update_time': datetime.datetime(2026, 3, 10, 21, 40, 30)}
+
