@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数详情 - CodeFetch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- 顶部导航栏 -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="nav-btn" onclick="window.location.href='index.html'">返回主页</button>
+            </div>
+            <div class="nav-right">
+                <button class="tool-btn" id="favoriteBtn" title="收藏">
+                    <span class="tool-icon">☆</span>
+                </button>
+                <button class="tool-btn" id="shareBtn" title="分享">
+                    <span class="tool-icon">↗</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="main-title" id="funcName">函数详情</h1>
+            </div>
+            
+            <div class="function-detail" id="functionDetail">
+                <!-- 函数详情将通过JavaScript动态加载 -->
+            </div>
+        </main>
+    </div>
+    
+    <script src="detail.js"></script>
+</body>
+</html>

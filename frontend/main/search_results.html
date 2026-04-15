@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索结果 - CodeFetch</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-results-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .search-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .search-query {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .search-lang {
+            color: #666;
+            font-size: 16px;
+        }
+        .results-count {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .result-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .result-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #007acc;
+        }
+        .result-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007acc;
+            margin-bottom: 8px;
+        }
+        .result-category {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .result-description {
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .result-details {
+            font-size: 14px;
+            color: #666;
+        }
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .back-btn:hover {
+            background: #005aa3;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='index.html'">← 返回</button>
+    
+    <div class="search-results-page">
+        <div class="search-header">
+            <div class="search-query" id="searchQuery"></div>
+            <div class="search-lang" id="searchLang"></div>
+            <div class="results-count" id="resultsCount"></div>
+        </div>
+        
+        <div id="resultsContainer">
+            <!-- 搜索结果将在这里显示 -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query') || '';
+            const lang = urlParams.get('lang') || 'Python';
+            
+            document.getElementById('searchQuery').textContent = `搜索 "${query}"`;
+            document.getElementById('searchLang').textContent = `语言: ${lang}`;
+            
+            // 获取搜索结果
+            // 使用后台服务端口防止404（页面可能由live-server在5500端口提供）
+            const apiUrl = `http://localhost:5000/api/search?lang=${encodeURIComponent(lang)}&query=${encodeURIComponent(query)}`;
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error:', data.error);
+                        document.getElementById('resultsContainer').innerHTML = 
+                            '<div class="no-results">搜索出错，请稍后重试</div>';
+                        return;
+                    }
+                    
+                    const results = data.results;
+                    // 后端已按相关性排序，无需再次排序
+                    
+                    document.getElementById('resultsCount').textContent = `找到 ${results.length} 个结果`;
+                    
+                    if (results.length === 0) {
+                        document.getElementById('resultsContainer').innerHTML = 
+                            '<div class="no-results">没有找到相关结果</div>';
+                        return;
+                    }
+                    
+                    const container = document.getElementById('resultsContainer');
+                    container.innerHTML = '';
+                    
+                    results.forEach((item, index) => {
+                        const resultDiv = document.createElement('div');
+                        resultDiv.className = 'result-item';
+                        resultDiv.onclick = () => {
+                            window.location.href = `detail.html?id=${item.id}`;
+                        };
+                        
+                        resultDiv.innerHTML = `
+                            <div class="result-name">${item.name}</div>
+                            <div class="result-category">${item.category || '未分类'}</div>
+                            <div class="result-description">${item.description || '暂无描述'}</div>
+                            <div class="result-details">
+                                ${item.params ? `参数: ${item.params}` : ''}
+                                ${item.return_type ? ` | 返回: ${item.return_type}` : ''}
+                            </div>
+                        `;
+                        
+                        container.appendChild(resultDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('resultsContainer').innerHTML = 
+                        '<div class="no-results">搜索出错，请稍后重试</div>';
+                });
+        });
+    </script>
+</body>
+</html>
